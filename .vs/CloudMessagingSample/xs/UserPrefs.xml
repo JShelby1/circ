@@ -1,0 +1,22 @@
+﻿<Properties StartupConfiguration="{4DBA604F-4732-4229-BDC2-340FD795E5F3}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CloudMessagingSample/Cells/OutgoingCell.cs">
+    <Files>
+      <File FileName="CloudMessagingSample/Backend/User.cs" Line="2" Column="39" />
+      <File FileName="../../../FlashNote-4/FlashNote/Camera/CameraViewController.cs" Line="334" Column="21" />
+      <File FileName="CloudMessagingSample/Welcome/RegisterViewController.cs" Line="68" Column="9" />
+      <File FileName="../../../FlashNote-4/FlashNote/App/AppDelegate.cs" Line="94" Column="31" />
+      <File FileName="CloudMessagingSample/AppDelegate.cs" Line="53" Column="13" />
+      <File FileName="CloudMessagingSample/Profile/ProfileViewController.cs" Line="79" Column="1" />
+      <File FileName="CloudMessagingSample/Profile/ProfileViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="CloudMessagingSample/Chat/ChatViewController.cs" Line="102" Column="57" />
+      <File FileName="CloudMessagingSample/Cells/OutgoingCell.cs" Line="14" Column="10" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.CloudMessagingSample PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.818f94492b333b4ffaa16d38219b3f5dc90bc572" />
+  <MultiItemStartupConfigurations />
+</Properties>

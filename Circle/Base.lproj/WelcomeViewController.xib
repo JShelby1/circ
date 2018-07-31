@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeViewController">
+            <connections>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="LoginBtn" destination="lKL-2H-gWc" id="name-outlet-lKL-2H-gWc"/>
+                <outlet property="RegisterBtn" destination="xph-NF-9T1" id="name-outlet-xph-NF-9T1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-2H-gWc">
+                    <rect key="frame" x="66" y="517" width="243.5" height="45"/>
+                    <color key="backgroundColor" red="0.20784313725490194" green="0.13725490196078433" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="GWv-D2-Qxa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Log in">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xph-NF-9T1">
+                    <rect key="frame" x="66" y="578" width="243.5" height="45"/>
+                    <color key="backgroundColor" red="0.35686274509803922" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="ene-t6-oBt"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Get started">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" customColorSpace="sRGB" colorSpace="calibratedWhite" white="1" alpha="1"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="xph-NF-9T1" secondAttribute="bottom" constant="44" id="IkJ-0o-Tn4"/>
+                <constraint firstItem="lKL-2H-gWc" firstAttribute="width" secondItem="2" secondAttribute="width" multiplier="0.65" id="Lje-fb-osz"/>
+                <constraint firstItem="lKL-2H-gWc" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="Mhp-No-BB0"/>
+                <constraint firstItem="xph-NF-9T1" firstAttribute="leading" secondItem="lKL-2H-gWc" secondAttribute="leading" id="jm3-2R-opf"/>
+                <constraint firstItem="xph-NF-9T1" firstAttribute="width" secondItem="lKL-2H-gWc" secondAttribute="width" id="lUh-eV-Elg"/>
+                <constraint firstItem="xph-NF-9T1" firstAttribute="top" secondItem="lKL-2H-gWc" secondAttribute="bottom" constant="16" id="sdj-Up-DWg"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

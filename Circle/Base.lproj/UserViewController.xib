@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserViewController">
+            <connections>
+                <outlet property="ChatButton" destination="x3T-0d-uQm" id="name-outlet-x3T-0d-uQm"/>
+                <outlet property="ProfileImageView" destination="Vqp-aW-fs2" id="name-outlet-Vqp-aW-fs2"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-aW-fs2">
+                    <rect key="frame" x="112" y="100" width="150" height="150"/>
+                    <color key="backgroundColor" red="0.59999999999999998" green="0.81960784310000001" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="Nd1-2d-tSc"/>
+                        <constraint firstAttribute="width" constant="150" id="m1o-EP-VO5"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3T-0d-uQm">
+                    <rect key="frame" x="74.5" y="515" width="225" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="1q2-Xm-k6g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                    <state key="normal" title="Direct Message">
+                        <color key="titleColor" red="0.10980392160000001" green="0.68627450980000004" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="25"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Vqp-aW-fs2" firstAttribute="top" secondItem="2" secondAttribute="top" constant="100" id="6Uh-0n-2zJ"/>
+                <constraint firstItem="Vqp-aW-fs2" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="FWA-pA-gla"/>
+                <constraint firstItem="x3T-0d-uQm" firstAttribute="width" secondItem="2" secondAttribute="width" multiplier="0.6" id="dw1-NM-bpZ"/>
+                <constraint firstItem="x3T-0d-uQm" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="kip-Kq-b89"/>
+                <constraint firstItem="x3T-0d-uQm" firstAttribute="top" secondItem="Vqp-aW-fs2" secondAttribute="bottom" constant="265" id="qww-27-Ex6"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

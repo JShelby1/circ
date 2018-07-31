@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
+            <connections>
+                <outlet property="Chat" destination="kNh-Er-PsE" id="name-outlet-kNh-Er-PsE"/>
+                <outlet property="Groups" destination="RQd-gx-fde" id="name-outlet-RQd-gx-fde"/>
+                <outlet property="Nearby" destination="AJK-7p-9TT" id="name-outlet-AJK-7p-9TT"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNh-Er-PsE">
+                    <rect key="frame" x="30" y="120" width="131.5" height="130"/>
+                    <color key="backgroundColor" red="0.65490196078431373" green="0.26666666666666666" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <state key="normal" title="Chat">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQd-gx-fde">
+                    <rect key="frame" x="30" y="433" width="131.5" height="130"/>
+                    <color key="backgroundColor" red="0.53333333333333333" green="0.80000000000000004" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <state key="normal" title="Groups">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJK-7p-9TT">
+                    <rect key="frame" x="184" y="255" width="161" height="173"/>
+                    <color key="backgroundColor" red="0.082352941176470587" green="0.62745098039215685" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <state key="normal" title="Nearby">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kNh-Er-PsE" firstAttribute="top" secondItem="2" secondAttribute="top" constant="120" id="0q3-iH-kRH"/>
+                <constraint firstItem="RQd-gx-fde" firstAttribute="top" secondItem="AJK-7p-9TT" secondAttribute="bottom" constant="5" id="B9i-Cw-NZ2"/>
+                <constraint firstItem="RQd-gx-fde" firstAttribute="top" secondItem="kNh-Er-PsE" secondAttribute="bottom" constant="183" id="C6n-MX-n0t"/>
+                <constraint firstItem="RQd-gx-fde" firstAttribute="width" secondItem="kNh-Er-PsE" secondAttribute="width" id="Cw9-9K-jtp"/>
+                <constraint firstItem="AJK-7p-9TT" firstAttribute="width" secondItem="2" secondAttribute="width" multiplier="0.43" id="LKU-ss-IbI"/>
+                <constraint firstAttribute="trailing" secondItem="AJK-7p-9TT" secondAttribute="trailing" constant="30" id="PnU-NY-aPH"/>
+                <constraint firstItem="AJK-7p-9TT" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="VMT-2D-paE"/>
+                <constraint firstItem="AJK-7p-9TT" firstAttribute="top" secondItem="kNh-Er-PsE" secondAttribute="bottom" constant="5" id="VMg-YM-G0h"/>
+                <constraint firstItem="kNh-Er-PsE" firstAttribute="height" secondItem="2" secondAttribute="height" multiplier="0.195" id="XoQ-Uo-hHA"/>
+                <constraint firstItem="AJK-7p-9TT" firstAttribute="height" secondItem="2" secondAttribute="height" multiplier="0.24" id="Zke-Cq-qab"/>
+                <constraint firstItem="kNh-Er-PsE" firstAttribute="width" secondItem="2" secondAttribute="width" multiplier="0.35" id="frm-ho-xAg"/>
+                <constraint firstItem="RQd-gx-fde" firstAttribute="height" secondItem="kNh-Er-PsE" secondAttribute="height" id="miq-2P-Zph"/>
+                <constraint firstItem="kNh-Er-PsE" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="30" id="scW-0H-bnD"/>
+                <constraint firstItem="RQd-gx-fde" firstAttribute="leading" secondItem="kNh-Er-PsE" secondAttribute="leading" id="wAe-os-kPw"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

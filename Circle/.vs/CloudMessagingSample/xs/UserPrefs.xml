@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{4DBA604F-4732-4229-BDC2-340FD795E5F3}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NearbyViewController.xib">
+    <Files>
+      <File FileName="AppDelegate.cs" Line="18" Column="2" />
+      <File FileName="RegisterViewController.cs" Line="2" Column="7" />
+      <File FileName="ContainerViewController.cs" Line="22" Column="49" />
+      <File FileName="NearbyViewController.cs" Line="18" Column="13" />
+      <File FileName="BaseViewController.cs" Line="1" Column="1" />
+      <File FileName="ChatViewController.cs" Line="17" Column="1" />
+      <File FileName="ProfileViewController.cs" Line="16" Column="38" />
+      <File FileName="Animations/Animations.cs" Line="152" Column="41" />
+      <File FileName="NearbyCell.cs" Line="13" Column="14" />
+      <File FileName="NearbyViewController.xib" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.CloudMessagingSample PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.17FB2C65-F1FD-4C4D-B974-FC15710933DD" />
+  <MultiItemStartupConfigurations />
+</Properties>
