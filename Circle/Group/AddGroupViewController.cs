@@ -7,20 +7,29 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Foundation;
 using Plugin.Geolocator;
+using CoreLocation;
 
 namespace Circle
 {
-    public partial class AddGroupViewController : UIViewController
+    public partial class AddGroupViewController : BaseViewController
     {
-        private NSObject authStateDidChangeListenerHandle;
-        private DatabaseReference groupNode;
-        private Firebase.Auth.User currentUser;
-        public Plugin.Geolocator.Abstractions.Position position;
-        private DatabaseReference groupsCountNode;
-        private nuint groupsCount;
-
-        public AddGroupViewController() : base("AddGroupViewController", null)
+        #region Computed Properties
+        public static bool UserInterfaceIdiomIsPhone
         {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+        }
+
+        public static LocationManager Manager { get; set; }
+        #endregion
+        private CLLocation location;
+        private double longitude;
+        private double latitude;
+        Plugin.Geolocator.Abstractions.IGeolocator locator = CrossGeolocator.Current;
+        public AddGroupViewController() : base("AddGroupViewController", NSBundle.MainBundle)
+        {
+            Manager = new LocationManager();
+            Manager.StartLocationUpdates();
+
         }
 
         public override void ViewDidLoad()
@@ -35,6 +44,26 @@ namespace Circle
         private void Initialize()
         {
             AddButton.TouchUpInside += CreateGroup;
+
+          /*  UIApplication.Notifications.ObserveDidBecomeActive((sender, args) => {
+             //   Manager.LocationUpdated += HandleLocationChanged;
+                locator.PositionChanged += delegate {
+
+
+                };
+            });
+
+            // Whenever the app enters the background state, we unsubscribe from the event 
+            // so we no longer perform foreground updates
+            UIApplication.Notifications.ObserveDidEnterBackground((sender, args) => {
+              //  Manager.LocationUpdated -= HandleLocationChanged;
+                locator.PositionChanged -= delegate {
+
+
+                };
+            });*/
+
+
         }
 
         public override void DidReceiveMemoryWarning()
@@ -47,34 +76,12 @@ namespace Circle
         {
             base.ViewWillAppear(animated);
 
-            this.authStateDidChangeListenerHandle = Auth.DefaultInstance.AddAuthStateDidChangeListener(HandleAuthStateDidChangeListenerHandler);
-
-            CreateGroupNode();
             GetGroupsCount();
         }
 
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
-            var handle = this.authStateDidChangeListenerHandle;
-            Auth.DefaultInstance.RemoveAuthStateDidChangeListener(handle);
-            groupNode.RemoveAllObservers();
-            groupsCountNode.RemoveAllObservers();
-        }
-
-        void HandleAuthStateDidChangeListenerHandler(Auth auth, Firebase.Auth.User user)
-        {
-            if (auth.CurrentUser != null)
-            {
-                currentUser = auth.CurrentUser;
-            }
-        }
-
-        private void CreateGroupNode()
-        {
-            groupNode = AppDelegate.RootNode.GetChild("groups").GetChildByAutoId();
-            groupsCountNode = AppDelegate.RootNode.GetChild("groups").GetChild("groupsCount");
-
         }
 
         void GetGroupsCount()
@@ -90,19 +97,12 @@ namespace Circle
         {
             
             var name = TextField.Text != null ? TextField.Text : "Group";
+            var created = AppDelegate.GetUtcTimestamp();
+            var lat = position.Latitude.ToString();
+            var lon = position.Longitude.ToString();
 
-            var loc = GetLocation().ToString();
-            /*  if (position == null)
-              {
-                 // var locator = CrossGeolocator.Current;
-                 // position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-              }*/
-
-            var lat = "lat";
-            var lon = "lon";
-
-            object[] keys = { "name", "location", "lat", "lon" };
-            object[] values = { name, loc, lat, lon };
+            object[] keys = { "name", "lat", "lon", "lastModified", "negativeLastModified" };
+            object[] values = { name, lat, lon, created, -created };
             var data = NSDictionary.FromObjectsAndKeys(values, keys, keys.Length);
 
             try
@@ -120,23 +120,18 @@ namespace Circle
             GoBack();
 		}
 
+        public void HandleLocationChanged(object sender, LocationUpdatedEventArgs e)
+        {
+            location = e.Location;
+            latitude = e.Location.Coordinate.Latitude;
+            longitude = e.Location.Coordinate.Longitude;
+
+
+        }
+
         private void GoBack()
         {
             NavigationController.PopViewController(true);
-        }
-
-		public void CompareLocations()
-		{
-			
-		}
-
-        private async Task<Plugin.Geolocator.Abstractions.Position> GetLocation()
-        {
-            var locator = CrossGeolocator.Current;
-
-            position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-
-            return position;
         }
 
     }

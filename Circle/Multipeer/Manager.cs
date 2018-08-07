@@ -13,7 +13,6 @@ namespace Circle
 	public class Manager : NSObject, IMCNearbyServiceAdvertiserDelegate, IMCNearbyServiceBrowserDelegate, IMCSessionDelegate
 	{
 		const string serviceType = "Nearby";
-
 		public MCPeerID peerID;
 		public MCSession session;
 		public MCNearbyServiceBrowser browser;
@@ -21,14 +20,7 @@ namespace Circle
 		public List<MCPeerID> peers = new List<MCPeerID>();
         public Plugin.Geolocator.Abstractions.Position position;
         public DatabaseReference groupNode;
-
-        private List<MCPeerID> _peers;
-        public List<MCPeerID> MCPeers
-        {
-            get { return _peers; }
-            set { _peers = value; }
-        }
-
+        public List<MCPeerID> MCPeers = new List<MCPeerID>();
 
 		public Manager()
 		{
@@ -68,7 +60,7 @@ namespace Circle
 			}
 		}
 
-		void disconnect()
+        public void disconnect()
 		{
 			advertiser.StopAdvertisingPeer();
 			advertiser.Delegate = null;
@@ -79,13 +71,14 @@ namespace Circle
 			browser = null;
 
 			session.Disconnect();
+           
 			session.Delegate = null;
 			session = null;
 		}
 
         public List<MCPeerID> NearbyUsers()
         {
-            return peers;
+            return MCPeers;
         }
 
 		void IMCNearbyServiceAdvertiserDelegate.DidReceiveInvitationFromPeer(MCNearbyServiceAdvertiser advertiser, MCPeerID peerID, NSData context, MCNearbyServiceAdvertiserInvitationHandler invitationHandler)
@@ -97,16 +90,12 @@ namespace Circle
 
 		void IMCNearbyServiceBrowserDelegate.FoundPeer(MCNearbyServiceBrowser browser, MCPeerID peerID, NSDictionary info)
 		{
-
-			if (peerID.DisplayName == this.peerID.DisplayName) return;
+            if (peerID.DisplayName == this.peerID.DisplayName) return;
 			else {
-				
-				browser.InvitePeer(peerID, session, null, 10);
+				browser.InvitePeer(peerID, session, null, 15);
                 MCPeers.Add(peerID);
-				Console.WriteLine("Found peer");
-
+            
 			}
-
 		}
 
 		void IMCNearbyServiceBrowserDelegate.LostPeer(MCNearbyServiceBrowser browser, MCPeerID peerID)
@@ -118,7 +107,6 @@ namespace Circle
 
 		void IMCSessionDelegate.DidChangeState(MCSession session, MCPeerID peerID, MCSessionState state)
 		{
-
 			var dictionary = new Dictionary<string, object> 
 			{
 				{"PeerID", peerID},
@@ -132,7 +120,6 @@ namespace Circle
 
 		void IMCSessionDelegate.DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
 		{
-
 			var dictionary = new Dictionary<string, object>
 			{
 				{"PeerID", peerID},
@@ -159,28 +146,29 @@ namespace Circle
 			throw new NotImplementedException();
 		}
 
-        void CreateNearbyChat(List<MCPeerID> peerUsers)
+        public async void CreateNearbyChat(List<MCPeerID> peerUsers)
         {
-            var loc = GetLocation().ToString();
+            var locator = CrossGeolocator.Current;
+            var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+
             var lat = position.Latitude.ToString();
             var lon = position.Longitude.ToString();
             string[] users = { };
-            var groupId = string.Join("", users);
 
             foreach (var peer in peerUsers)
             {
                 var id = peer.ToString();
                 users.Append(id);
             }
-                
-            object[] keys = { "users", "groupid", "location", "lat", "lon" };
-            object[] values = { users, groupId, loc, lat, lon  };
+
+            object[] keys = { "users", "lat", "lon" };
+            object[] values = { users, lat, lon };
             var data = NSDictionary.FromObjectsAndKeys(values, keys, keys.Length);
 
             groupNode.KeepSynced(true);
             groupNode.SetValue(data);
-
         }
+
 
         void AddUserToGroup()
         {
@@ -188,20 +176,8 @@ namespace Circle
         }
 
         void RemoveUserFromGroup()
-
         {
             
         }
-
-        private async Task<Plugin.Geolocator.Abstractions.Position> GetLocation()
-        {
-            var locator = CrossGeolocator.Current;
-
-            position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-
-            return position;
-        }
-
-
     }
 }

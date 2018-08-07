@@ -24,7 +24,7 @@ namespace Circle
             UIView view = UIApplication.SharedApplication.Delegate.GetWindow().ViewWithTag(100);
             if (view != null)
                 view = null;
-                
+                 
             if (Frame == CGRect.Empty)
             {
                 ConfigureiVarsWithImage(alertImage, displayTime);
@@ -73,33 +73,28 @@ namespace Circle
 
         public void SetAlertTitleColor(UIColor alertTitleColor)
         {
-            alertTitleColor = alertTitleColor;
             if (titleLabel==null) {return;}
             titleLabel.TextColor = alertTitleColor;
         }
 
         public void SetAlertTitleFont(UIFont alertTitleFont)
         {
-            alertTitleFont = alertTitleFont;
             if (titleLabel== null){ return; }
             titleLabel.Font = alertTitleFont;
         }
 
         public void SetAlertMessageColor(UIColor alertMessageColor)
         {
-            alertMessageColor = alertMessageColor;
             messageLabel.TextColor = alertMessageColor;
         }
 
         public void SetAlertMessageFont(UIFont alertMessageFont)
         {
-            alertMessageFont = alertMessageFont;
             messageLabel.Font = alertMessageFont;
         }
 
         public void SetAlertBackgroundColor(UIColor alertBackgroundColor)
         {
-            alertBackgroundColor = alertBackgroundColor;
             BackgroundColor = alertBackgroundColor;
         }
 
@@ -154,13 +149,11 @@ namespace Circle
         public UITapGestureRecognizer Tap()
         {
             return new UITapGestureRecognizer(this, new ObjCRuntime.Selector("UserGestureDetected:"));
-  
         }
 
         public UIPanGestureRecognizer Pan()
         {
             return new UIPanGestureRecognizer(this, new ObjCRuntime.Selector("UserGestureDetected:"));
-
         }
 
 

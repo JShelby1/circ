@@ -11,7 +11,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>10.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -33,7 +33,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
-		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
 	<key>CFBundleName</key>
@@ -44,5 +43,7 @@
 	<string>We&apos;ll connect you with people around you to find groups near you.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>We&apos;ll connect you with people around you to find groups near you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>New Entry</string>
 </dict>
 </plist>

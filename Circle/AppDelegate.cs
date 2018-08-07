@@ -23,7 +23,8 @@ namespace Circle
         public static DatabaseReference RootNode { get; set; }
 		public event EventHandler<UserInfoEventArgs> MessageReceived;
         private List<string> readPermissions = new List<string> { "public_profile" };
-        private User currentUser;
+        public static Manager manager { get; set; }
+     
 
 
 		// class-level declarations
@@ -36,6 +37,9 @@ namespace Circle
         public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
             // Override point for customization after application launch.
+
+            var locator = CrossGeolocator.Current;
+            var position = locator.GetPositionAsync(TimeSpan.FromSeconds(10));
             // If not required for your application you can safely delete this method
             Window = new UIWindow(UIScreen.MainScreen.Bounds);
 			//(Window.RootViewController as UINavigationController).PushViewController (new WelcomeViewController(), true);
@@ -78,6 +82,20 @@ namespace Circle
 			return true;
 		}
 
+        [Export("applicationDidEnterBackground:")]
+        public void DidEnterBackground(UIApplication application)
+        {
+            if (manager != null)
+                manager.disconnect();
+        }
+
+        public static void SetUpManager(string userCode)
+        {
+            manager = new Manager();
+            manager.setupPeerAndSession((NSString)userCode);
+            manager.setupBrowser();
+            manager.advertiseSelf(true);
+        }
 
 
         void HandleAuthStateDidChangeListener(Auth auth, User user)
@@ -184,6 +202,22 @@ namespace Circle
 		}
 
 		void LogInformation (string methodName, object information) => Console.WriteLine ($"\nMethod name: {methodName}\nInformation: {information}");
+
+        public static double GetUtcTimestamp()
+        {
+            return double.Parse(DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
+        }
+
+        public static DateTime GetDateTime()
+        {
+            return DateTime.Now;
+        }
+
+        public static string ConvertUnformattedUtcDateToCurrentDate(string utcDate)
+        {
+            var date = DateTime.ParseExact(utcDate, "yyyyMMddHHmmss", System.Globalization.CultureInfo.GetCultureInfo("en-Us"));
+            return date.ToString("MM/dd/yy");
+        }
 	}
 }
 

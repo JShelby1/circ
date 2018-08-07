@@ -4,30 +4,23 @@ using Foundation;
 using UIKit;
 using Firebase.Database;
 using Firebase.Auth;
+using Plugin.Geolocator;
+using CoreLocation;
+
 
 namespace Circle
 {
-    public partial class GroupsViewController : UIViewController, IUITableViewDelegate, IUITableViewDataSource
+    public partial class GroupsViewController : BaseViewController, IUITableViewDelegate, IUITableViewDataSource
     {
 
-        private DatabaseReference groupNode;
-        private AuthStateDidChangeListenerHandler authStateDidChangeListener;
-        private Firebase.Auth.User currentUser;
-        private Group group { get; set; }
-        private List<Group> groups = new List<Group>();
-        private DatabaseReference groupsCountNode;
-        private nuint groupsCount;
-        private DatabaseQuery groupsByDate;
+        private List<Group> removeList = new List<Group>();
 
-
-        public GroupsViewController() : base("GroupsViewController", null)
-        {
-        }
+        public GroupsViewController() : base("GroupsViewController", NSBundle.MainBundle) { }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
+            View.Tag = 400;
             Title = "Groups";
             NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem("Done", UIBarButtonItemStyle.Done, GoBack), true);
             NavigationItem.SetRightBarButtonItem(new UIBarButtonItem("Add", UIBarButtonItemStyle.Done, GoToAddGroup), true);
@@ -36,41 +29,28 @@ namespace Circle
 
         }
 
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-            CreateGroupNodes();
-            GetGroupsCount();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            RemoveAllObservers();
-        }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
-
         }
 
         private void Initialize()
         {
-
             TableView.Delegate = this;
             TableView.DataSource = this;
 
-            RetrieveGroups();
         }
 
-        void RemoveAllObservers()
+        public override void ViewWillAppear(bool animated)
         {
-            groupNode.RemoveAllObservers();
-            groupsCountNode.RemoveAllObservers();
-            groupsByDate.RemoveAllObservers();
+            base.ViewWillAppear(animated);
 
+            GetGroupsCount();
+            if (groups.Count == (int)groupsCount)
+            {
+                TableView.ReloadData();
+            }
         }
 
         void GoBack(object sender, EventArgs e)
@@ -83,64 +63,70 @@ namespace Circle
             NavigationController.PushViewController(new AddGroupViewController(), true);
         }
 
-        private void CreateGroupNodes()
-        {
-            groupNode = AppDelegate.RootNode.GetChild("groups");
-            groupsCountNode = AppDelegate.RootNode.GetChild("groups").GetChild("groupsCount");
-            groupsByDate = groupNode.GetQueryOrderedByChild("negativeLastModified");
-        }
-
         private void GetGroupsCount()
         {
             groupsCountNode.ObserveEvent(DataEventType.Value, (snapshot) =>
             {
+                Console.WriteLine($"Group count snapshot: {snapshot}");
                 groupsCount = snapshot.Exists ? snapshot.GetValue<NSNumber>().NUIntValue : 0;
                 RetrieveGroups();
-                
             }, (error) => {
                 Console.WriteLine($"Retrieve group error: {error.LocalizedDescription}");
             });
         }
 
-        private void RetrieveGroups()
-        {
-            groups.Clear();
 
-            if (groupsCount == 0)
+
+     
+
+        public void CompareLocations(double lat, double lon)
+        {
+            var currentLocation = new CLLocation(lat, lon);
+            var groupsForLoop = groups.ToArray();
+            for (int i = 0; i < (int)groups.Count; i++)
             {
-                return;
+                var group = groups[i];
+                var groupLatitude = Convert.ToDouble(group.Lat);
+                var groupLongitude = Convert.ToDouble(group.Lon);
+                var groupLocation = new CLLocation(groupLatitude, groupLongitude);
+
+                var distance = groupLocation.DistanceFrom(currentLocation);
+                Console.WriteLine(distance);
+                if (distance > 15)
+                    AddToRemoveList(groups[i]);   
             }
 
-            groupsByDate.ObserveEvent(DataEventType.ChildAdded, (snapshot) =>
-            {
-                if (snapshot.Key != "groupsCount")
-                {
-                    Console.WriteLine(snapshot);
-                    var data = snapshot.GetValue<NSDictionary>();
-                    var name = data["name"].ToString();
-
-                    groups.Add(new Group
-                    {
-                        Node = snapshot.Key,
-                        Name = name,
-                        Id = "Group",
-                        Members = "m"
-                    });
-
-                }
-            });
         }
-                                      
 
+        private void AddToRemoveList(Group group)
+        {
+            groups.Remove(group);
+        }
+
+        private void InsertRow(Group group)
+        {
+            var indexPath = new NSIndexPath[] { NSIndexPath.FromIndex(0) };
+         
+            groups.Insert(0, group);
+            TableView.InsertRows(indexPath, UITableViewRowAnimation.Left);
+            TableView.ReloadData();
+        }
+
+        private void DeleteRow(int index)
+        {
+            
+        }
+
+                                     
         public nint RowsInSection(UITableView tableView, nint section)
         {
-            return (nint)groupsCount;
+            return (nint)groups.Count;
         }
 
         public UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             var group = groups[indexPath.Row];
-            var cell = tableView.DequeueReusableCell("cell", indexPath);
+            var cell = new UITableViewCell(UITableViewCellStyle.Default, "cell");
             cell.TextLabel.Text = group.Name;
             return cell;
         }

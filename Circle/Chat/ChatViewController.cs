@@ -1,5 +1,6 @@
 ﻿using System;
-
+using Firebase.Auth;
+using Firebase.Database;
 using Foundation;
 using UIKit;
 using CoreGraphics;
@@ -8,14 +9,18 @@ using JSQMessagesViewController;
 
 namespace Circle
 {
-    public partial class ChatViewController : UIViewController, IUICollectionViewDelegate, IUICollectionViewSource, IUITextFieldDelegate, IUICollectionViewDelegateFlowLayout
+    public partial class ChatViewController : BaseViewController, IUICollectionViewDelegate, IUICollectionViewSource, IUITextFieldDelegate, IUICollectionViewDelegateFlowLayout
     {
 
         private string CellId = "CellId";
         private UICollectionView CollectionView;
-        public ChatViewController() 
+
+        public ChatViewController(string id) : base(null,null)
         {
         }
+
+
+
         private UITextField textField;
         private UITextField TextField()
         {

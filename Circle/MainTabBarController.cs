@@ -27,7 +27,7 @@ namespace Circle
             profileTab.TabBarItem.Image = UIImage.FromFile(images[3]);
             profileTab.Title = "Profile";
 
-            chatTab = new ChatViewController();
+            chatTab = new ChatViewController(null);
             chatTab.TabBarItem.Image = UIImage.FromFile(images[0]);
             chatTab.Title = "Chat";
 

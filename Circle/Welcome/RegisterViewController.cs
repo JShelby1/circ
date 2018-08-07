@@ -13,25 +13,35 @@ using System.Threading.Tasks;
 
 namespace Circle
 {
-    public partial class RegisterViewController : UIViewController
+    public partial class RegisterViewController : BaseViewController
     {
+        #region Computed Properties
+        public static bool UserInterfaceIdiomIsPhone
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+        }
+        public static LocationManager Manager { get; set; }
+        #endregion
 
-        private NSObject authStateDidChangeListenerHandle;
+
         private List<string> readPermissions = new List<string> { "public_profile" };
         private FloatLabeledTextField nameField;
         private FloatLabeledTextField emailField;
         private FloatLabeledTextField passwordField;
-         public DatabaseReference userNode;
-        public Firebase.Auth.User currentUser;
 
-        public RegisterViewController() : base("RegisterViewController", null)
+
+
+        public RegisterViewController() : base("RegisterViewController", NSBundle.MainBundle)
         {
+            Manager = new LocationManager();
+            Manager.StartLocationUpdates();
+
         }
 
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-
+            View.Tag = 500;
         //    await GetLocation();
             Initialize();
 
@@ -43,52 +53,6 @@ namespace Circle
             }
 
         }
-
-        private async Task<Plugin.Geolocator.Abstractions.Position> GetLocation()
-        {
-            var locator = CrossGeolocator.Current;
-
-            var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-
-            return position;
-        }
-
-
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-            this.authStateDidChangeListenerHandle = Auth.DefaultInstance.AddAuthStateDidChangeListener(HandleAuthStateDidChangeListenerHandler);
-           
-
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            var handle = this.authStateDidChangeListenerHandle;
-            Auth.DefaultInstance.RemoveAuthStateDidChangeListener(handle);
-            userNode.RemoveAllObservers();
-        }
-
-
-        void HandleAuthStateDidChangeListenerHandler(Auth auth, Firebase.Auth.User user)
-        {
-            if (auth.CurrentUser != null)
-            {
-                currentUser = auth.CurrentUser;
-                CreateUserNode(currentUser.Uid);
-                MoveToNext();
-            }
-        }
-
-
-
-        private void CreateUserNode(string uid)
-        {
-            userNode = AppDelegate.RootNode.GetChild("users").GetChild(uid);
-        }
-
 
 
         public override void DidReceiveMemoryWarning()
